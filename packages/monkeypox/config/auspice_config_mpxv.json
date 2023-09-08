@@ -1,15 +1,15 @@
 {
-  "title": "Genomic epidemiology of monkeypox virus",
+  "title": "Genomic epidemiology of West Nile virus on data from ENA",
   "maintainers": [
-    {"name": "Nextstrain team", "url": "http://nextstrain.org"}
+    {"name": "EMBL-EBI ENA team", "url": "https://www.insdc.org/"}
   ],
   "data_provenance": [
     {
-      "name": "GenBank",
-      "url": "https://www.ncbi.nlm.nih.gov/genbank/"
+      "name": "INSDC",
+      "url": "https://www.pathogensportal.org/"
     }
   ],
-  "build_url": "https://github.com/nextstrain/monkeypox",
+  "build_url": "https://gitlab.ebi.ac.uk/ena-dcap/pathogen-phylogeny-monkeypox",
   "colorings": [
     {
       "key": "outbreak",

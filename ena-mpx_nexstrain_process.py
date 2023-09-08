@@ -20,6 +20,8 @@ id = matadata.accession
 contry = matadata.country
 date = matadata.collection_date
 date_public = matadata.first_public
+author = matadata.collected_by
+host = matadata.host
 
 # #**************************************** Downloading and heading Fasta ....
 print('\n\n> Downloading Fastas ... [ '+str(datetime.now())+" ]")
@@ -72,8 +74,17 @@ line = "\t".join(head_ref)
 meatadata_output.write(line+"\n")
 for i in range(len(id)):
     first_line_ref[head_ref.index("accession")]= id[i]
+    first_line_ref[head_ref.index("genbank_accession_rev")]= str(id[i])+'.1'
+    first_line_ref[head_ref.index("strain")]= id[i]
+    first_line_ref[head_ref.index("host")]= host[i]
+    first_line_ref[head_ref.index("sra_accession")]= id[i]
     first_line_ref[head_ref.index("date")]= date[i]
     first_line_ref[head_ref.index("date_submitted")]= date_public[i]
+    first_line_ref[head_ref.index("authors")]= author[i] 
+    first_line_ref[head_ref.index("abbr_authors")]= author[i]
+    first_line_ref[head_ref.index("institution")]= ' '
+    first_line_ref[head_ref.index("clade")]= ''
+    first_line_ref[head_ref.index("lineage")]= ''
     if contry[i].find(":") != -1 :
         ctt, ctry = contry_to_continent(contry[i].split(":")[0])
         if ctry != " ":
@@ -97,9 +108,9 @@ meatadata_output.close()
 
 print('\n\n> Run analysis Nextstrain pipeline ... [ '+str(datetime.now())+" ]")
 
-os.system("cd packages/monkeypox ; nextstrain build --docker --cpus 1 . --configfile config/config_mpxv.yaml")
-os.system("cp packages/monkeypox/auspice/* packages/aupice_res/aupice/")
-os.system("sh rename_mpn.sh")
+os.system("cd packages/monkeypox ; nextstrain build  --cpus 1 . --configfile config/config_mpxv.yaml")
+#os.system("cp packages/monkeypox/auspice/* packages/aupice_res/aupice/")
+#os.system("sh rename_mpn.sh")
 # os.system("cd packages/monkeypox ; nextstrain build --docker --cpus 1 . --configfile config/config_hmpxv1.yaml") 
 
 
