@@ -65,6 +65,27 @@ def contry_to_continent(ContryInput):
             return  " " , " "
         
 
+# Function to convert date format
+def convert_date(date_str):
+    if date_str == 'nan':
+        return 'XXXX-XX-XX'
+    try:
+        datetime_obj = datetime.strptime(date_str, "%b-%Y")
+        return datetime_obj.strftime("%Y-%m-XX")
+    except ValueError:
+        try:
+            datetime_obj = datetime.strptime(date_str, "%d-%b-%Y")
+            return datetime_obj.strftime("%Y-%m-%d")
+        except ValueError:
+            try:
+                datetime_obj = datetime.strptime(date_str, "%Y")
+                return datetime_obj.strftime("%Y-XX-XX")
+            except ValueError:
+                if len(date_str) == 7 and date_str[4] == '-':
+                    return date_str + "-XX"
+                return date_str
+
+
 print('\n\n> MetaData prep ... [ '+str(datetime.now())+" ]")
 data_ref = pd.read_csv("packages/monkeypox/data_oj/metadata.tsv",sep="\t")
 head_ref = [str(i) for i in data_ref]
@@ -78,8 +99,8 @@ for i in range(len(id)):
     first_line_ref[head_ref.index("strain")]= id[i]
     first_line_ref[head_ref.index("host")]= host[i]
     first_line_ref[head_ref.index("sra_accession")]= id[i]
-    first_line_ref[head_ref.index("date")]= date[i]
-    first_line_ref[head_ref.index("date_submitted")]= date_public[i]
+    first_line_ref[head_ref.index("date")]= convert_date(str(date[i]))
+    first_line_ref[head_ref.index("date_submitted")]= convert_date(str(date_public[i]))
     first_line_ref[head_ref.index("authors")]= author[i] 
     first_line_ref[head_ref.index("abbr_authors")]= author[i]
     first_line_ref[head_ref.index("institution")]= ' '

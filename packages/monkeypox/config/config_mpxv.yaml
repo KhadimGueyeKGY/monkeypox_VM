@@ -16,7 +16,7 @@ build_name: "mpxv"
 auspice_name: "monkeypox_mpxv"
 
 ## filter
-min_date: 2017
+min_date: 1950 # 2017
 min_length: 100000
 group_by: "--group-by clade year country"
 sequences_per_group: "--sequences-per-group 50"
